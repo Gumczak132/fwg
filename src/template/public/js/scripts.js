@@ -17,8 +17,8 @@ $('#password').blur(function () {
 $("#registration").submit(function (e) {
 
     var url = $(this).attr('action');
-    $(this).replaceWith("<div id='loader'><img src='images/ajax-loader.gif'></div>");
-    $('#forget_psw_string').hide();
+    $(this).replaceWith("<div id='loader'><img src='src/template/public/images/ajax-loader.gif'></div>");
+    $('#already_registered').hide();
 
 
     $.ajax({
@@ -32,17 +32,17 @@ $("#registration").submit(function (e) {
             {
                 $('#loader').replaceWith('<p class="medium">Registration complteded successfully <br/> <h5>Now you can safely log in!</h5></p>');
                 window.setTimeout(function () {
-                    location.href = "/fwg/";
-                }, 3000);
-                console.log(JSON.parse(data)); // show response from the php script.
+                    location.href = "/fwg";
+                }, 1500);
+                //   console.log(JSON.parse(data)); // show response from the php script.
             }
             else
             {
                 $('#loader').replaceWith('<p class="medium">' + JSON.parse(data) + '</h5></p>');
                 window.setTimeout(function () {
                     location.href = "registration";
-                }, 3000);
-                console.log(JSON.parse(data)); // show response from the php script.
+                }, 1500);
+                // console.log(JSON.parse(data)); // show response from the php script.
             }
 
         }
@@ -51,18 +51,36 @@ $("#registration").submit(function (e) {
 
 });
 
-function onlyNumbersandSpecialChar(evt) {
-    var e = window.event || evt;
-    var charCode = e.which || e.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57 || charCode > 107 || charCode > 219 || charCode > 221) && charCode !== 40 && charCode !== 32 && charCode !== 41 && (charCode < 43 || charCode > 46)) {
-        if (window.event) //IE
-            window.event.returnValue = false;
-        else //Firefox
-            e.preventDefault();
-    }
-    return true;
+$("#login").submit(function (e) {
 
-}
+    var url = $(this).attr('action');
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $(this).serialize(), // serializes the form's elements.
+
+        success: function (data)
+        {
+            if ('true' === JSON.parse(data))
+            {
+                location.href = "/fwg/diary";
+//                console.log(JSON.parse(data)); // show response from the php script.
+            }
+            else
+            {
+//                console.log(JSON.parse(data)); // show response from the php script.
+                $('#loader').replaceWith('<p class="medium">' + JSON.parse(data) + '</h5></p>');
+                window.setTimeout(function () {
+                    location.href = "";
+                }, 1500);
+            }
+
+        }
+    });
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+});
 
 //allows only alphabet and numbers! :D!
 

@@ -10,7 +10,7 @@ $collection->add('homepage', new \Gumunia\Diary\Engine\Router\Route(
         )
 ));
 
-$collection->add('Registration', new \Gumunia\Diary\Engine\Router\Route(
+$collection->add('registration', new \Gumunia\Diary\Engine\Router\Route(
         HTTP_SERVER . 'registration', array(
     'file' => DIR_CONTROLLER . 'RegistrationController.php',
     'method' => 'registration',
@@ -18,11 +18,27 @@ $collection->add('Registration', new \Gumunia\Diary\Engine\Router\Route(
         )
 ));
 
-$collection->add('Registration_add', new \Gumunia\Diary\Engine\Router\Route(
+$collection->add('registration_add', new \Gumunia\Diary\Engine\Router\Route(
         HTTP_SERVER . 'registration/add', array(
     'file' => DIR_CONTROLLER . 'RegistrationController.php',
     'method' => 'add',
     'class' => '\Gumunia\Diary\Controller\RegistrationController'
+        )
+));
+ 
+$collection->add('login', new \Gumunia\Diary\Engine\Router\Route(
+        HTTP_SERVER . 'login', array(
+    'file' => DIR_CONTROLLER . 'LoginController.php',
+    'method' => 'login',
+    'class' => '\Gumunia\Diary\Controller\LoginController'
+        )
+));
+
+$collection->add('diary', new \Gumunia\Diary\Engine\Router\Route(
+        HTTP_SERVER . 'diary', array(
+    'file' => DIR_CONTROLLER . 'DiaryController.php',
+    'method' => 'index',
+    'class' => '\Gumunia\Diary\Controller\DiaryController'
         )
 ));
 

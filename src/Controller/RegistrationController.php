@@ -2,6 +2,9 @@
 
 namespace Gumunia\Diary\Controller;
 
+use \Gumunia\Diary\View as view;
+use \Gumunia\Diary\Model as model;
+
 class RegistrationController extends \Gumunia\Diary\Engine\Controller
 {
 
@@ -10,20 +13,17 @@ class RegistrationController extends \Gumunia\Diary\Engine\Controller
      */
     public function registration()
     {
-        $view = new \Gumunia\Diary\View\Registration();
+        $view = new view\Registration();
 
         return $view->renderSmarty('registration', 'accounts/registration/');
     }
 
     public function add()
     {
-
-        
-        $model = new \Gumunia\Diary\Model\Registration();
+        $model = new model\Registration();
         $response = $model->createUser($_POST);
         
-        die(json_encode($response));
-        
+        die(json_encode($response));       
     }
 
 }

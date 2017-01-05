@@ -1,4 +1,4 @@
-{extends file='src/template/accounts/index.tpl'}
+{extends file='src/template/index.tpl'}
 
 {block name=body}
     <body>
@@ -26,8 +26,8 @@
                     <input id="inputsubmit" type="submit" value="Sign In">
                     <br/>
                 </form>
-                <div id='forget_psw_string'>
-                    <a href="/fwg"><p class="medium">Already registered?</p></a>
+                <div id='already_registered'>
+                    <a href="/fwg/"><p class="medium">Already registered?</p></a>
                 </div>
             </div>
         </div>

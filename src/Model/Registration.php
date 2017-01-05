@@ -14,7 +14,7 @@ class Registration extends \Gumunia\Diary\Engine\Model
     public function createUser($data)
     {
         if (!$data) {
-            header('Location: /fwg/');
+            header('Location: /');
             die();
         }
         $this->data = $data;
@@ -43,7 +43,7 @@ class Registration extends \Gumunia\Diary\Engine\Model
         } elseif ($this->select('accounts', 'user', array('user' => $this->data['user']))) {
 
             return "User already exists";
-        } elseif (!($this->data['user'] && $this->data['password'])) {
+        } elseif (!$this->data['user'] OR ! $this->data['password'] OR ! $this->data['confirm_password']) {
 
             return 'All fields must be filled!';
         } else {

@@ -2,6 +2,7 @@
 
 namespace Gumunia\Diary\Engine;
 
+use Gumunia\Diary\Engine\Router as router;
 
 abstract class Controller
 {
@@ -26,7 +27,7 @@ abstract class Controller
 
     public function generateUrl($name, $data = null)
     {
-        $router = new \Gumunia\Diary\Engine\Router\Router('http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
+        $router = new router\Router('http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
         $collection = $router->getCollection();
         $route = $collection->get($name);
         if (isset($route)) {

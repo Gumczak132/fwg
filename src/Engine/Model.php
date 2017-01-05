@@ -52,6 +52,7 @@ abstract class Model
             $order = NULL, $limit = NULL)
     {
         $query = 'SELECT ' . $quantity . ' FROM ' . $table;
+
         if ($where != NULL) {
             $query .= ' WHERE ' . self::arrayToQuery($where);
         }
@@ -64,9 +65,13 @@ abstract class Model
         $prepared = $this->getReady($query);
         if ($where != NULL) {
             $stmt = self::bind($where, $prepared);
-            return $row = self::getRow($stmt);
+            $row = self::getRow($stmt);
+                    
+            return $row[0];
         }
-        return $row = self::getRow($prepared);
+        $row = self::getRow($prepared);
+                
+        return $row[0];
     }
 
     /*
@@ -145,8 +150,14 @@ abstract class Model
      */
     private static function arrayToQuery(array $data)
     {
-        
-        return self::paramsConverter($data, ':') . ' ';
+
+        $indexs = array_keys($data);
+        foreach ($indexs as &$param) {
+            $param .= '=:'. $param;
+        }
+        unset($param);
+
+        return implode(', ', $indexs) . " ";
     }
 
     /*
@@ -163,20 +174,19 @@ abstract class Model
      */
     private static function getParamsIndexToBind(array $data)
     {
-        
-        return self::paramsConverter($data, ':');
+        $indexs = array_keys($data);
+        foreach ($indexs as &$param) {
+            $param = ':' . $param;
+        }
+        unset($param);
+
+        return implode(', ', $indexs);
     }
 
     // string @prefix value = '=:' , ':'
     private static function paramsConverter($data, $prefix)
     {
-        $indexs = array_keys($data);
-        foreach ($indexs as &$param) {
-            $param .= $prefix . $param;
-        }
-        unset($param);
-
-        return implode(', ', $indexs);
+        
     }
 
 }
